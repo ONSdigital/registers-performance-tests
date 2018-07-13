@@ -13,11 +13,11 @@ class RegistersSimulation extends Simulation {
 
   val baseUrl: String = ConfigLoader("baseUrl")
   val numOfConcurrentUsers: Int = ConfigLoader("concurrentUsers") toInt
-  val getRequest = ConfigLoader("get_request")
+  val requestRelPath = ConfigLoader("request_rel_path")
   val request_type = ConfigLoader("request_type")
-  val requestName: String = ConfigLoader("request_name_prefix").stripSuffix(" ") + ": " + baseUrl + getRequest
+  val requestName: String = ConfigLoader("request_name_prefix").stripSuffix(" ") + ": " + baseUrl + requestRelPath
 
-  println(s"Running test with numOfConcurrentUsers: $numOfConcurrentUsers, baseUrl : $baseUrl, $request_type Request : $getRequest")
+  println(s"Running test with numOfConcurrentUsers: $numOfConcurrentUsers, baseUrl : $baseUrl, $request_type Request : $requestRelPath")
 
   val httpProtocol: HttpProtocolBuilder = http
     .baseURL(baseUrl)
@@ -32,12 +32,12 @@ class RegistersSimulation extends Simulation {
 
   var scn: ScenarioBuilder = scenario(requestName);
   if (request_type == "POST") {
-    val postRequestBody = ConfigLoader("post_body_json_file_name")
+    val postRequestBody = ConfigLoader.getPOSTRequestBodyJSONPath()
 
     scn = scn
       .exec(
         http(requestName)
-          .post(getRequest)
+          .post(requestRelPath)
           .headers(headers_0)
           .body(RawFileBody(postRequestBody)).asJSON
       )
@@ -45,7 +45,7 @@ class RegistersSimulation extends Simulation {
     scn = scn
       .exec(
         http(requestName)
-          .get(getRequest)
+          .get(requestRelPath)
           .headers(headers_0)
       )
   }
