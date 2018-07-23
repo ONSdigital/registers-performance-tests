@@ -54,6 +54,7 @@ The gatling simulations are executed using the official gatling SBT plugin. Samp
 
 To simply run *all* the simulation(s):
 `JAVA_OPTS="-DconfigName=ai-api-addresses-mock-data -DCONCURRENT_USERS=101" sbt "gatling:test" "gatling:lastReport"`
+this will run the gatling test against an endpoint defined under the key `ai-api-addresses-mock-data` in one of the configuration files under `conf` directory.
 
 To run a specific simulation:
 `JAVA_OPTS="-DconfigName=ai-api-addresses-mock-data -DCONCURRENT_USERS=101" sbt "gatling:testOnly uk.gov.ons.gatling.simulations.RegistersSimulation" "gatling:lastReport"`
