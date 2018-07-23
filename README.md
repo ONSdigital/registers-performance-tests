@@ -53,17 +53,13 @@ Instructions on altering all of the above limits is detailed in [macOS Tuning fo
 The gatling simulations are executed using the official gatling SBT plugin. Sample usages:
 
 To simply run *all* the simulation(s):
-`sbt gatling:test`
+`JAVA_OPTS="-DconfigName=ai-api-addresses-mock-data -DCONCURRENT_USERS=101" sbt "gatling:test" "gatling:lastReport"`
 
 To run a specific simulation:
-`sbt "gatling:testOnly uk.gov.ons.gatling.simulations.RegistersSimulation"`
-`sbt "gatling:testOnly uk.gov.ons.gatling.simulations.SomeOtherSimulation"`
-
-To pass in a configurable property to the simulation(s):
-`JAVA_OPTS="-DconcurrentUsers=10000" sbt gatling:test`
+`JAVA_OPTS="-DconfigName=ai-api-addresses-mock-data -DCONCURRENT_USERS=101" sbt "gatling:testOnly uk.gov.ons.gatling.simulations.RegistersSimulation" "gatling:lastReport"`
 
 A useful example is as follows, where the number of users is passed in, a specific config file is used and at the end of the simulation the reports is automatically opened:
-JAVA_OPTS="-DconcurrentUsers=100 -DconfigFileName=ai-api-pcs-exeter.conf" sbt clean compile "gatling:testOnly uk.gov.ons.gatling.simulations.RegistersSimulation" "gatling:lastReport"
+`JAVA_OPTS="-DCONCURRENT_USERS=100 -DconfigName=ai-api-pcs-exeter" sbt "gatling:test" "gatling:lastReport"`
 
 (The above runs the gatling simulation using the request as in ai-api-pcs.exeter.conf file and assumes that the AI server is running locally, for example, like so:
 
