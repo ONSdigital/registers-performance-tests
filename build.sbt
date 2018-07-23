@@ -3,6 +3,7 @@ import sbt.Keys.organizationName
 lazy val Versions = new {
   val scala = "2.12.6"
   val appVersion = "0.1-SNAPSHOT"
+  val gatlingVersion = "2.3.1"
 }
 
 lazy val Constant = new {
@@ -55,8 +56,8 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "org.scalatest" %% "scalatest" % "3.0.5" % Test,
       "com.typesafe" % "config" % "1.3.2",
-      "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.3.0" % "test",
-      "io.gatling" % "gatling-test-framework" % "2.3.0" % "test",
+      "io.gatling.highcharts" % "gatling-charts-highcharts" % Versions.gatlingVersion % "test",
+      "io.gatling" % "gatling-test-framework" % Versions.gatlingVersion % "test",
       "io.github.lukehutch" % "fast-classpath-scanner" % "3.1.9" % "test"
     )
   )
